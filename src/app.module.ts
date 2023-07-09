@@ -16,26 +16,30 @@ import { DB_CONFIG } from './config/global-db-config';
 import { KnexCronJob } from './config/cron-job';
 import { KnexSchemaBuilderService } from './modules/knex-dynamic-schema/knex.service';
 
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+
 @Module({
   imports: [
-    KnexSchemaModule,
-    KnexCrudModule,
-    TodosModule,
+    // KnexSchemaModule,
+    // KnexCrudModule,
+    // TodosModule,
     StandardModule,
     StudentModule,
     AuthModule,
-    KnexModule.forRoot({
-      config: {
-        client: DB_CONFIG.SQL.client,
-        useNullAsDefault: true,
-        connection: {
-          host: DB_CONFIG.SQL.host,
-          database: DB_CONFIG.SQL.database,
-          user: DB_CONFIG.SQL.username,
-          password: DB_CONFIG.SQL.password,
-        },
-      },
-    }),
+
+    // KnexModule.forRoot({
+    //   config: {
+    //     client: DB_CONFIG.SQL.client,
+    //     useNullAsDefault: true,
+    //     connection: {
+    //       host: DB_CONFIG.SQL.host,
+    //       database: DB_CONFIG.SQL.database,
+    //       user: DB_CONFIG.SQL.username,
+    //       password: DB_CONFIG.SQL.password,
+    //     },
+    //   },
+    // }),
 
     TypeOrmModule.forRoot({
       type: 'mssql',
@@ -45,15 +49,20 @@ import { KnexSchemaBuilderService } from './modules/knex-dynamic-schema/knex.ser
       username: DB_CONFIG.SQL.username,
       password: DB_CONFIG.SQL.password,
       synchronize: true,
-      entities: [Todos],
+      // entities: [Todos],
       options: {
         encrypt: false,
       },
     }),
 
     MongooseModule.forRoot(DB_CONFIG.MONGODB.mongoUrl),
+
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: 'schema.gql',
+    }),
   ],
-  controllers: [CronPostController, AppController],
-  providers: [AppService, KnexSchemaBuilderService, KnexCronJob],
+  // controllers: [CronPostController, AppController],
+  // providers: [AppService, KnexSchemaBuilderService, KnexCronJob],
 })
 export class AppModule {}

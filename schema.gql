@@ -1,0 +1,16 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type StudentDto {
+  _id: ID!
+  name: String!
+  age: Int!
+  mobile: String!
+  standard: ID!
+}
+
+type Query {
+  students: [StudentDto!]!
+  hello: String!
+}

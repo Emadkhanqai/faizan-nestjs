@@ -3,7 +3,8 @@ export const DB_CONFIG = {
   SQL: {
     client: 'mssql',
     host: 'localhost',
-    sqlPort: 1433,
+    // sqlPort: 1433,
+    sqlPort: 58613,
     database: 'FaizanMSSQL',
     username: 'faizan',
     password: 'abc123',
